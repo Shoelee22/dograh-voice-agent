@@ -1,0 +1,9 @@
+services:
+  tools:
+    build: ./tools
+    ports:
+      - "8090:8090"
+    environment:
+      DATA_DIR: /app/data
+    volumes:
+      - ./tools/data:/app/data
