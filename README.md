@@ -19,12 +19,16 @@ inbound/outbound call (Twilio etc.)
 ### 1. Self-host Dograh (official one-command install)
 
 ```bash
-curl -o docker-compose.yaml https://raw.githubusercontent.com/dograh-hq/dograh/main/docker-compose.yaml \
-&& curl -o start_docker.sh https://raw.githubusercontent.com/dograh-hq/dograh/main/scripts/start_docker.sh \
-&& chmod +x start_docker.sh && ./start_docker.sh
+cd selfhost && ./start_docker.sh   # answer Y; first start takes 2-3 min
 ```
 
-Open http://localhost:3010, create your account. No API keys needed to start — Dograh ships its own LLM/TTS/STT stack (BYO providers anytime).
+Open http://localhost:3010, create your account, and copy your **API key** from the dashboard — you'll need it below. No provider keys needed to start: Dograh ships its own LLM/TTS/STT stack (BYO providers anytime).
+
+Or everything after this step in one go:
+
+```bash
+DOGRAH_API_KEY=dg_your_key ./setup.sh
+```
 
 ### 2. Run the tools server (lead capture webhook)
 
