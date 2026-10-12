@@ -35,6 +35,8 @@ docker compose up --build
 
 This starts the FastAPI lead server on `:8090`. Dograh's webhook node calls it when a lead is captured.
 
+> **Lock it down:** set `WEBHOOK_SECRET` in your environment and add it as an `X-Webhook-Secret` custom header on Dograh's webhook node — otherwise anyone with the URL can POST fake leads.
+
 > **Networking note:** the webhook URL must be reachable *from the Dograh containers*.
 > Docker Desktop (Mac/Windows): `http://host.docker.internal:8090` (default).
 > Linux: use your host LAN IP or the docker0 gateway (e.g. `http://172.17.0.1:8090`).
@@ -67,6 +69,14 @@ This uploads `agent/workflow.json` (Maya receptionist: global brand voice → qu
 | `docker-compose.yaml` | Runs the tools server |
 | `scripts/test_call.py` | Triggers an outbound test call |
 | `.env.example` | All config in one place |
+
+## Tests
+
+```bash
+python3 tests/test_lead_server.py   # webhook: stores leads, 400s garbage, secret gate
+python3 tests/test_workflow.py      # workflow.json obeys Dograh's schema rules
+python3 tests/test_api_scripts.py   # both API scripts hit the right endpoints (stub server)
+```
 
 ## Notes
 

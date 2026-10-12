@@ -10,6 +10,7 @@ Env:
 import json
 import os
 import sys
+import urllib.error
 import urllib.request
 
 API = os.environ.get("DOGRAH_API_URL", "http://localhost:3010/api/v1").rstrip("/")
